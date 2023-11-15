@@ -1,0 +1,36 @@
+.info-container {
+  position: relative;
+  display: inline-block;
+}
+
+.info-button {
+  padding-top: -2px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 5px;
+}
+.info-button:hover {
+  background: transparent;
+}
+
+.info-content {
+  display: none;
+  position: absolute;
+  background-color: #000000b5;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: white;
+  font-size: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  width: 200px;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.info-container:hover .info-content {
+  display: block;
+}
