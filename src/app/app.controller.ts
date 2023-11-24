@@ -2,11 +2,9 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { JsonDto } from './dtos/app.dto';
 
-@Controller('/')
+@Controller()
 export class AppController {
-  constructor(public appService: AppService) {
-    this.appService = appService;
-  }
+  constructor(private appService: AppService) {}
 
   @Get('/health')
   getHello(): string {

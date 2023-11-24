@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
-import { AppModule } from './app/app.module';
 import 'dotenv/config';
+import { GlobalModule } from './global.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(GlobalModule);
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   await app.listen(3000);
