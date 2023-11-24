@@ -14,5 +14,23 @@ export class AuthenticationService {
   // but that function is connected to the below validate user function to write business logic,
   // i.e when validate returns truthy value it means user is authenticated, so we will do that here and make it return true or false.
   // and also write some logic here so that we can store that user in db as well
-  validateUser(user: UserDto) {}
+  async validateUser(user: UserDto) {
+    const searchedUser = await this.userRepository.findOne({
+      where: {
+        email: user.email,
+      },
+    });
+
+    if (searchedUser) {
+      return searchedUser;
+    }
+
+    const newUser = this.userRepository.create(user);
+    return this.userRepository.save(newUser);
+  }
+
+  async findUserById(id: number) {
+    const user = await this.userRepository.findOneBy({ id });
+    return user;
+  }
 }

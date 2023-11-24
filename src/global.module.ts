@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AuthenticationController } from './authentication/authentication.controller';
-
+import { AppService } from './app/app.service';
 import { AppController } from './app/app.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './typeorm/entities/user.entity';
-import { AppService } from './app/app.service';
+import { AppModule } from './app/app.module';
+import { AuthenticationModule } from './authentication/authentication.module';
 
 @Module({
   imports: [
@@ -19,8 +20,8 @@ import { AppService } from './app/app.service';
       synchronize: true,
       logging: 'all',
     }),
+    AppModule,
+    AuthenticationModule,
   ],
-  providers: [AppService],
-  controllers: [AuthenticationController, AppController],
 })
 export class GlobalModule {}

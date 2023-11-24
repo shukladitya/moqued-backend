@@ -17,10 +17,13 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
   async validate(accessToken: string, refreshToken: string, profile: any) {
     //returning truthy value here means successfully authenticated, false means not authenticated
     console.log(accessToken, refreshToken, profile);
-    return {
-      accessToken,
-      refreshToken,
-      profile,
-    };
+
+    const user = await this.authService.validateUser({
+      name: profile.displayName,
+      email: profile.emails[0].value,
+      photo: profile.photos[0].value,
+    });
+
+    return user || false;
   }
 }
