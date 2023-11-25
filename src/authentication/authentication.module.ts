@@ -6,11 +6,17 @@ import { AuthenticationService } from './authentication.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/typeorm/entities/user.entity';
 import { AuthenticationController } from './authentication.controller';
+import { GithubStrategy } from './strategies/githubOAuth';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]), PassportModule],
   controllers: [AuthenticationController],
-  providers: [GoogleStrategy, AuthenticationService, SessionSerializer],
+  providers: [
+    GoogleStrategy,
+    GithubStrategy,
+    AuthenticationService,
+    SessionSerializer,
+  ],
   exports: [AuthenticationService],
 })
 export class AuthenticationModule {}

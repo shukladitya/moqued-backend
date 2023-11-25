@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { AppService } from './app.service';
 import { JsonDto } from './dtos/app.dto';
 
@@ -12,7 +12,8 @@ export class AppController {
   }
 
   @Post('/json')
-  generateJson(@Body() body: JsonDto) {
+  generateJson(@Body() body: JsonDto, @Req() req: any) {
+    console.log(req, 'req');
     return this.appService.generateJson(body);
   }
 }
