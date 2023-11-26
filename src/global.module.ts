@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './typeorm/entities/user.entity';
 import { AppModule } from './app/app.module';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { Prompt } from './typeorm/entities/prompt.entity';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
       port: 5432,
       password: 'postgres',
       username: 'aditya',
-      entities: [User],
+      entities: [User, Prompt],
       database: 'moqueddb',
       synchronize: true,
       logging: 'all',

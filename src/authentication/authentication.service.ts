@@ -15,7 +15,6 @@ export class AuthenticationService {
   // i.e when validate returns truthy value it means user is authenticated, so we will do that here and make it return true or false.
   // and also write some logic here so that we can store that user in db as well
   async validateUser(user: UserDto) {
-    console.log(user, 'ewefds');
     const searchedUser = await this.userRepository.findOne({
       where: {
         email: user.email,
