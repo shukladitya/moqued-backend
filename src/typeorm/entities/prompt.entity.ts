@@ -1,11 +1,11 @@
-import { Column, PrimaryColumn } from 'typeorm';
-
+import { Column, Entity, PrimaryColumn } from 'typeorm';
+@Entity({ name: 'prompts' })
 export class Prompt {
   @PrimaryColumn()
   promptId: string;
 
   @Column()
-  userId: number;
+  userId: string;
 
   @Column()
   route: string;

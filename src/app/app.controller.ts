@@ -27,9 +27,13 @@ export class AppController {
   }
 
   @UseGuards(AuthGuard)
-  @UseInterceptors(HashInterceptor)
-  @Post('/json')
-  generateJson(@Body() body: JsonDto, @Req() req: any) {
-    return this.appService.generateJson(body, req.body.requestHash);
+  @UseInterceptors(HashInterceptor) // this hash is combination of userId and route
+  @Post('/new-json')
+  generateJsonResponse(@Body() body: JsonDto, @Req() req: any) {
+    return this.appService.generateJsonResponse(
+      body,
+      req.body.requestHash,
+      req.user.email,
+    );
   }
 }

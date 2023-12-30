@@ -14,7 +14,7 @@ export const userOpenAI = async (prompt: string) => {
           content: prompt,
         },
       ],
-      max_tokens: 400,
+      max_tokens: 600,
       temperature: 0.8,
       top_p: 0.9,
       frequency_penalty: 0.2,
