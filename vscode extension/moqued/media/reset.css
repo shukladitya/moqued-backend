@@ -125,3 +125,27 @@ path {
   font-size: 18px;
   font-weight: 700;
 }
+
+/* toast--------------------------------------------------- */
+.toast {
+  position: absolute;
+  display: none;
+  bottom: 0;
+  margin: 20px;
+  background-color: var(--vscode-textPreformat-background);
+  border-left: 3px solid var(--vscode-button-background);
+  padding: 8px;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(-120%);
+  transition: all 0.5s ease-in-out;
+  .close-toast {
+    margin-left: 8px;
+    font-size: 11px;
+    cursor: pointer;
+  }
+}
+.animateToast {
+  transform: translateX(0);
+  transition: all 0.5s ease-in-out;
+}

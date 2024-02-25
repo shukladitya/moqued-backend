@@ -54,3 +54,44 @@ availableOptions.forEach((option) => {
       .classList.add('active-schema-option');
   });
 });
+
+//
+//
+//
+//
+//
+//
+//
+// toast notification logic-----------
+const triggerNotification = (notification) => {
+  const toast = document.querySelector('.toast');
+  toast.style.display = 'flex';
+  toast.innerHTML = `${notification}<div class='close-toast'>
+    ╳
+    </div>`;
+
+  toast.classList.add('animateToast');
+  setTimeout(() => {
+    toast.classList.remove('animateToast');
+  }, 3000);
+  setTimeout(() => {
+    toast.style.display = 'none';
+  }, 3500);
+
+  const closeToastBtn = document.querySelector('.close-toast');
+  closeToastBtn.addEventListener('click', () => {
+    toast.classList.remove('animateToast');
+    setTimeout(() => {
+      toast.style.display = 'none';
+    }, 3500);
+  });
+};
+const closeToast = () => {
+  const toast = document.querySelector('.toast');
+  setTimeout(() => {
+    toast.classList.remove('animateToast');
+  }, 3000);
+  setTimeout(() => {
+    toast.style.display = 'none';
+  }, 3500);
+};
