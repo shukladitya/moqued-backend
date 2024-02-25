@@ -71,3 +71,39 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+### Starting Redis as a Background Service
+
+To start Redis as a background service using Homebrew, follow these steps:
+
+1. Install Redis:
+
+   ```bash
+   brew install redis
+   ```
+
+2. Start Redis as a background service:
+
+   ```bash
+   brew services start redis
+   ```
+
+### Starting Redis in the Foreground (Development/Testing)
+
+If you prefer to run Redis in the foreground for development or testing, you can follow these steps:
+
+1. Start the Redis server in a terminal:
+
+   ```bash
+   redis-server
+   ```
+
+2. Open a new terminal window and connect to Redis using the CLI:
+
+   ```bash
+   redis-cli
+   ```
+
+   Now, you can enter Redis commands in the Redis CLI.
+
+**Note:** Running Redis in the foreground is suitable for development or testing purposes. In production, it's recommended to set up Redis as a background service using a process manager.

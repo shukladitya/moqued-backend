@@ -1,4 +1,5 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { Logger } from '@nestjs/common';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_PRO_SECRET_KEY);
 

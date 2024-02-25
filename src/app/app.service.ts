@@ -1,5 +1,4 @@
 import {
-  Inject,
   Injectable,
   InternalServerErrorException,
   Logger,
@@ -9,8 +8,8 @@ import { generateJsonGetPrompt } from './prompts/jsonPrompt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Prompt } from 'src/typeorm/entities/prompt.entity';
 import { Repository } from 'typeorm';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { Cache } from 'cache-manager';
+import Redis from 'ioredis';
+import { InjectRedis } from '@nestjs-modules/ioredis';
 import { userOpenAI } from './lib/openAI';
 import { useGiminiPro } from './lib/googleGeminiPro';
 
@@ -20,7 +19,7 @@ export class AppService {
     @InjectRepository(Prompt)
     private readonly promptRepository: Repository<Prompt>,
 
-    @Inject(CACHE_MANAGER) private cacheService: Cache,
+    @InjectRedis() private readonly redis: Redis,
   ) {}
 
   async generateJsonResponse(
@@ -34,17 +33,18 @@ export class AppService {
       // const gptResponse = await userOpenAI(gptPrompt);
       const gptResponse = await useGiminiPro(gptPrompt);
 
-      console.log(gptResponse, 'gptResponse');
       if (gptResponse.error) {
         throw new InternalServerErrorException(gptResponse.error.message);
       }
-      Logger.log(
-        `GPT response for ${userRouteHash}`,
-        JSON.stringify(gptResponse, null, 2),
-      );
+      Logger.log(`GPT response for ${userRouteHash}`, gptResponse);
 
       // !IMPORTANT: set this in cache first, it will be stored as Prompt: prefix in redis
-      await this.cacheService.set(`prompt:${userRouteHash}`, gptResponse);
+      await this.redis.set(
+        `prompt:${userRouteHash}`,
+        gptResponse,
+        'EX',
+        60 * 60 * 24,
+      );
 
       //now store it in db or update it if it already exists
 
@@ -78,11 +78,20 @@ export class AppService {
 
   async consumeRoute(userRouteHash: string) {
     // get from cache
-    const response = await this.cacheService.get(`prompt:${userRouteHash}`);
+    const response: string = await this.redis.get(`prompt:${userRouteHash}`);
 
     Logger.log(response, 'HIT: response from cache');
     // if response return it
-    if (response) return JSON.parse(response as string);
+    if (response) {
+      const match = response.match(/```json\n([\s\S]+)\n```/);
+
+      if (match) {
+        const jsonString = match[1];
+        return JSON.parse(jsonString);
+      } else {
+        console.error('Invalid JSON format in markdown code block');
+      }
+    }
 
     // if no response, first check in db if it exists, call generate according to type else throw error that path is not valid
 
