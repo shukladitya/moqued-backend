@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3000/';
+export const API_BASE_URL = 'http://localhost:3000/';
 const getData = async (routeName) => {
   try {
     // Use axios to make a GET request

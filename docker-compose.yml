@@ -1,0 +1,39 @@
+version: '3'
+services:
+  app:
+    image: lightasteroid/moqued:3
+    ports:
+      - '6969:3000'
+    environment:
+      - POSTGRES_USER=aditya
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=moqueddb
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - moqued-network
+
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=aditya
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=moqueddb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - moqued-network
+
+  redis:
+    image: redis:6
+    networks:
+      - moqued-network
+
+volumes:
+  pgdata:
+
+networks:
+  moqued-network:

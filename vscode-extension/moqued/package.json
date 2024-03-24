@@ -10,14 +10,21 @@
     "Other"
   ],
   "activationEvents": [
-    "onView:vsinder-sidebar"
+    "onView:vsinder-sidebar",
+    "onCommand:moqued.authenticateGoogle"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "moqued.helloWorld",
+        "category": "Moqued",
         "title": "Hello World"
+      },
+      {
+        "command": "moqued.authenticateGoogle",
+        "title": "Google Authentication",
+        "category": "Moqued"
       }
     ],
     "viewsContainers": {
@@ -55,6 +62,7 @@
   "devDependencies": {
     "@types/mocha": "^10.0.3",
     "@types/node": "18.x",
+    "@types/polka": "^0.5.7",
     "@types/vscode": "^1.84.0",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "@typescript-eslint/parser": "^6.9.0",
@@ -66,5 +74,8 @@
     "typescript": "^5.2.2",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "playwright": "^1.42.1"
   }
 }

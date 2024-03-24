@@ -9,7 +9,7 @@ import { Prompt } from './typeorm/entities/prompt.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: 'postgres',
       port: 5432,
       password: 'postgres',
       username: 'aditya',

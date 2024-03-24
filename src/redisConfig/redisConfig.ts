@@ -2,7 +2,9 @@ import { createClient } from 'redis';
 import RedisStore from 'connect-redis';
 import { RedisModuleOptions } from '@nestjs-modules/ioredis';
 
-const redisClient = createClient();
+const redisClient = createClient({
+  url: 'redis://redis:6379',
+});
 // { // put these configurations in createClient
 //   port: 6379,
 //   host: 'localhost',
@@ -20,6 +22,6 @@ export const redisSessionStore = new RedisStore({
 
 export const redisPromptStore: RedisModuleOptions = {
   type: 'single',
-  url: 'redis://localhost:6379',
+  url: 'redis://redis:6379',
 };
 // Two different redis configurations one is used in main to store session data and other is used in appModule to store prompt data

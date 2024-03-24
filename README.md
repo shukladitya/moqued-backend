@@ -107,3 +107,29 @@ If you prefer to run Redis in the foreground for development or testing, you can
    Now, you can enter Redis commands in the Redis CLI.
 
 **Note:** Running Redis in the foreground is suitable for development or testing purposes. In production, it's recommended to set up Redis as a background service using a process manager.
+
+## Build and Run the extension in VSCode
+
+### Step 1: Run Webpack in Watch Mode
+
+Ensure that you have Webpack installed globally. If not, you can install it by running:
+
+```bash
+npm install -g webpack
+```
+
+Now, run Webpack in watch mode to build the extension:
+
+```bash
+webpack --watch
+```
+
+This command will monitor your source code for changes and automatically rebuild the extension.
+
+### Step 2: Run the Project
+
+1.Open Visual Studio Code.
+2.Press F5 or click on the "Run Extension" play button in the Run and Debug sidebar.
+
+This will launch a new instance of VS Code with your extension installed.
+Test your extension in the newly opened VS Code instance.

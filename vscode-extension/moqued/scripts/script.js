@@ -28,8 +28,7 @@ const jsonGetFormSubmit = async (e) => {
   console.log(formData, 'formData');
 
   try {
-    console.log(jsonData, 'jsonData');
-    const response = await getData('health');
+    const response = await postData('new-json', formData);
     console.log(response.data);
   } catch (error) {
     console.error('Error posting data:', error);

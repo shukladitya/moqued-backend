@@ -28,6 +28,16 @@ export class AppService {
     userId: string,
   ): Promise<any> {
     try {
+      //check if propmpt hash present in cache then no need to call gpt or store, just say route exist
+      const cachedResponse = await this.redis.get(`prompt:${userRouteHash}`);
+      if (cachedResponse) {
+        return {
+          status: 200,
+          url: process.env.BASE_URL_HOST,
+          route: formBody.apiRoute,
+        };
+      }
+
       const gptPrompt = generateJsonGetPrompt(formBody);
 
       // const gptResponse = await userOpenAI(gptPrompt);
@@ -67,8 +77,9 @@ export class AppService {
       if (savedPrompt) {
         return {
           status: 200,
-          url: process.env.BASE_URL,
+          url: process.env.BASE_URL_HOST,
           route: formBody.apiRoute,
+          method: formBody.apiMethod,
         };
       }
     } catch (err) {
@@ -94,6 +105,7 @@ export class AppService {
     }
 
     // if no response, first check in db if it exists, call generate according to type else throw error that path is not valid
+    // generally this will be used when pressing history button to generate as done before 24 hours
 
     const prompt = await this.promptRepository.findOne({
       where: { promptId: userRouteHash },
